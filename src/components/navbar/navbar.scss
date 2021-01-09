@@ -1,0 +1,19 @@
+.navbar-logo {
+  margin-left: 3rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-shadow: 0 0.4rem 1rem rgba(#ffd94b, 0.6);
+  transition: all 0.2s;
+  &:hover {
+    text-shadow: 0 0.6rem 2rem rgba(mix(#ff4154,#ffd94b,30%), 0.8);
+    transform: skewX(-5deg);
+    -webkit-transform: skewX(-5deg);
+    -moz-transform: skewX(-5deg);
+    -ms-transform: skewX(-5deg);
+    -o-transform: skewX(-5deg);
+}
+}
+
+.nav-wrapper {
+  background-color: #012c4b;
+}
