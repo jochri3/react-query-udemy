@@ -4,6 +4,7 @@ import Home from "./pages/posts";
 import Navbar from "./components/navbar/navbar";
 import "./components/style.scss";
 
+
 export default function App() {
   return (
     <Router>

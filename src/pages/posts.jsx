@@ -5,15 +5,23 @@ import Count from "../components/count/count";
 import Loader from "../components/loader/loader";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { ReactQueryDevtools } from "react-query-devtools";
 
 export default function Posts() {
-  const { data, isLoading, isError, error, status } = useQuery("posts", () =>
-    axios
-      .get("https://posts-resource.herokuapp.com/api/posts")
-      .then((res) => res.data.data)
+  const { data, isLoading, isError, error, status, isFetching } = useQuery(
+    "posts",
+    () =>
+      axios
+        .get("https://posts-resource.herokuapp.com/api/posts")
+        .then((res) => res.data.data),
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 10000,
+    }
   );
   const displayPosts = () => {
     if (isLoading) return <Loader />;
+    else if (isFetching) return <Loader message={"Updating..."} />;
     else if (isError) return <Error message={error.response.data.message} />;
     else return <PostsList posts={data} />;
   };
@@ -24,6 +32,7 @@ export default function Posts() {
       <TextInput />
       <Count />
       {displayPosts()}
+      <ReactQueryDevtools />
     </div>
   );
 }
