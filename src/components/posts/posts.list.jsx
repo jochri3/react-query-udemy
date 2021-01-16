@@ -8,7 +8,7 @@ export default function PostsList({ posts }) {
   return (
     <>
       {/* <h3 className="heading-primary">Liste des posts</h3> */}
-      <ul class="collection">{listPosts()}</ul>
+      <ul className="collection">{listPosts()}</ul>
     </>
   );
 }
