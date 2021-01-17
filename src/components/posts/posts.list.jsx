@@ -5,26 +5,33 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import Error from "../error/error";
 
-export default function PostsList({ posts }) {
-   const { data, isLoading, isError, error, status, isFetching } = useQuery(
-     "posts",
-     () =>
-       axios
-         .get("https://posts-resource.herokuapp.com/api/posts")
-         .then((res) => res.data.data),
-     {
-       refetchOnWindowFocus: false,
-       staleTime: 1000,
-     }
-   );
- 
+export default function PostsList({ queryKey }) {
+  const { data, isLoading, isError, error, status, isFetching } = useQuery(
+    queryKey,
+    () =>
+      axios
+        .get("https://posts-resource.herokuapp.com/api/posts")
+        .then((res) => res.data.data),
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 1000,
+      cacheTime: 6000,
+    }
+  );
 
-   const displayPosts = () => {
-     if (isLoading) return <Loader />;
-     else if (isFetching) return <Loader message={"Updating..."} />;
-     else if (isError) return <Error message={error.response.data.message} />;
-     else return <>{data.map((post) => <PostItem key={post.id} {...post} />)}</>;
-   };
+  const displayPosts = () => {
+    if (isLoading) return <Loader />;
+    else if (isFetching) return <Loader message={"Updating..."} />;
+    else if (isError) return <Error message={error.response.data.message} />;
+    else
+      return (
+        <>
+          {data.map((post) => (
+            <PostItem key={post.id} {...post} />
+          ))}
+        </>
+      );
+  };
   return (
     <>
       {/* <h3 className="heading-primary">Liste des posts</h3> */}
