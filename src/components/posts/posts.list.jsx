@@ -1,22 +1,12 @@
 import React from "react";
 import PostItem from "./posts.item";
 import Loader from "../loader/loader";
-import { useQuery } from "react-query";
-import axios from "axios";
+import usePosts from "../../hooks/usePosts";
 import Error from "../error/error";
 
 export default function PostsList({ queryKey }) {
-  const { data, isLoading, isError, error, status, isFetching } = useQuery(
-    queryKey,
-    () =>
-      axios
-        .get("https://posts-resource.herokuapp.com/api/posts")
-        .then((res) => res.data.data),
-    {
-      refetchOnWindowFocus: false,
-      staleTime: 1000,
-      cacheTime: 6000,
-    }
+  const { data, isLoading, isError, error, status, isFetching } = usePosts(
+    queryKey
   );
 
   const displayPosts = () => {
